@@ -1,0 +1,34 @@
+@mixin mobile {
+    @media screen and (max-width: 620px) {
+        @content
+    }
+}
+
+.containerCenter {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--gray-900);
+
+    img {
+        height: auto;
+        display: block;
+        max-width: 100%;
+    }
+
+    svg {
+        animation: animate 1.8s infinite;
+    }
+}
+
+@keyframes animate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
