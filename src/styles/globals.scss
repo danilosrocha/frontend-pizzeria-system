@@ -26,6 +26,11 @@ a {
     text-decoration: none;
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
+
 body {
     background: var(--dark-700);
 }
@@ -36,12 +41,6 @@ textarea,
 select,
 button {
     font: 400 1rem sans-serif;
-}
-
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
 }
 
 @media(max-width: 720px) {

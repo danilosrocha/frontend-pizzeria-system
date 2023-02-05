@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/Button";
 import styles from './styles.module.scss'
 import Link from "next/link";
 import { AuthContext } from "@/contexts/AuthContext";
+import { toast } from 'react-toastify';
+import { canSSRGuest } from "@/utils/canSSRGuest";
 
 const SignIn = () => {
   const { signIn } = useContext(AuthContext)
@@ -19,7 +21,7 @@ const SignIn = () => {
     event.preventDefault();
 
     if (email === '' || password === '') {
-      alert('Preencha os dados!')
+      toast.warning("Preencha os dados!")
       return
     }
 
@@ -72,3 +74,9 @@ const SignIn = () => {
 }
 
 export default SignIn;
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})

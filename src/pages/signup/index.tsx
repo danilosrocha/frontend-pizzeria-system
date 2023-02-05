@@ -7,6 +7,8 @@ import styles from './styles.module.scss'
 import Link from "next/link";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
+import { toast } from 'react-toastify';
+import { canSSRGuest } from "@/utils/canSSRGuest";
 
 const SignUp = () => {
     const [name, setName] = useState("")
@@ -20,7 +22,7 @@ const SignUp = () => {
         event.preventDefault();
 
         if (name === '' || email === '' || password === '') {
-            alert('Preencha os dados!')
+            toast.warning("Preencha os dados!")
             return
         }
 
@@ -81,3 +83,9 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+    return {
+        props: {}
+    }
+})

@@ -1,0 +1,34 @@
+.rightNav {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: end;
+    flex-flow: row nowrap;
+    align-items: center;
+    // position: relative;
+
+    p {
+        color: var(--white);
+        padding: 0.8rem 0.8rem;
+        position: relative;
+        display: inline-block;
+        transition: color 0.7s;
+        margin-left: 2rem;
+
+        &:hover {
+            color: var(--red-900);
+        }
+    }
+
+    button {
+        margin-left: 2rem;
+        background: transparent;
+        border: 0;
+        transition: transform 0.8s;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+}

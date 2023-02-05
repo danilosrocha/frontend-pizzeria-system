@@ -5,6 +5,8 @@ import logoImg from '../assets/logo.svg'
 import styles from '../styles/home.module.scss'
 import { FaSpinner } from 'react-icons/fa'
 import { useEffect } from "react";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { canSSRGuest } from "@/utils/canSSRGuest";
 
 const Preload = () => {
 
@@ -29,3 +31,9 @@ const Preload = () => {
 }
 
 export default Preload;
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})
