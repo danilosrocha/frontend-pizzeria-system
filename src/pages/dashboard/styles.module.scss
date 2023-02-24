@@ -1,14 +1,62 @@
-.containerCenter {
-    min-height: 100vh;
+.container {
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 0 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    background: var(--gray-900);
 
-    img {
-        height: auto;
-        display: block;
-        max-width: 100%;
+    h1 {
+        color: var(--white);
+    }
+}
+
+.containerHeader {
+    display: flex;
+
+    button {
+        background: transparent;
+        border: 0;
+        margin-left: 1rem;
+    }
+}
+
+.listOrders {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    gap: 1rem;
+}
+
+.orderItem {
+    display: flex;
+    background: var(--dark-900);
+    margin-left: 1rem;
+    align-items: center;
+    border-radius: 0.3rem;
+    
+
+    button {
+        border: 0;
+        background: transparent;
+        font-size: 1.2rem;
+        color: var(--white);
+        align-items: center;
+        height: 60px;
+        position: relative;
+    }
+
+    span {
+        margin-left: 10px;
+    }
+
+    button::before {
+        content: "";
+        width: 9px;
+        height: 60px;
+        background: var(--green-900);
+        border-radius: 0.3rem 0 0 0.3rem;
+        position: absolute;
+        top: 0;
+        left: -10px;
     }
 }
