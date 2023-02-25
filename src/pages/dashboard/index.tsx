@@ -47,12 +47,13 @@ const Dashboard = ({ orders }: HomeProps) => {
 
   const [modalItem, setModalItem] = useState<OrderItemProps[]>()
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   function handleCloseModal() {
     setModalIsOpen(false)
   }
 
-  async function handlOpenModalView(id: string) {
+  async function handleOpenModalView(id: string) {
     const apiClient = setupAPIClient()
 
     const response = await apiClient.get('/order/detail', {
@@ -63,6 +64,32 @@ const Dashboard = ({ orders }: HomeProps) => {
 
     setModalItem(response.data)
     setModalIsOpen(true)
+  }
+
+  async function handleFinishItem(id: string) {
+    const apiClient = setupAPIClient()
+
+    await apiClient.put('/order/finish', {
+      order_id: id,
+    })
+
+    const response = await apiClient.get('/orders');
+
+    setOrderList(response.data)
+    setModalIsOpen(false)
+  }
+
+  async function handleReloadOrders() {
+    setLoader(true)
+    const apiClient = setupAPIClient()
+
+    const response = await apiClient.get('/orders');
+
+    setTimeout(() => {
+      setLoader(false)
+    }, 1000);
+
+    setOrderList(response.data)
   }
 
   Modal.setAppElement('#__next');
@@ -78,15 +105,22 @@ const Dashboard = ({ orders }: HomeProps) => {
 
         <div className={styles.containerHeader}>
           <h1>Últimos pedidos</h1>
-          <button>
-            <FiRefreshCcw color="#3fffa3" size={25} />
+          <button onClick={handleReloadOrders}>
+            {loader ? <FiRefreshCcw color="#3fffa3" size={25} className={styles.refreshLoading} /> : <FiRefreshCcw color="#3fffa3" size={25} />}
           </button>
         </div>
 
         <article className={styles.listOrders}>
+
+          {orderList.length === 0 && (
+            <span className={styles.emptyList}>
+              Nenhum pedido aberto foi encontrado..
+            </span>
+          )}
+
           {orderList.map(item => (
             <section key={item.id} className={styles.orderItem}>
-              <button onClick={() => handlOpenModalView(item.id)}>
+              <button onClick={() => handleOpenModalView(item.id)}>
                 <span>Mesa {item.table}</span>
               </button>
             </section>
@@ -99,6 +133,7 @@ const Dashboard = ({ orders }: HomeProps) => {
           isOpen={modalIsOpen}
           onRequestClose={handleCloseModal}
           order={modalItem}
+          handleFinishOrder={handleFinishItem}
         />
       )}
     </>
