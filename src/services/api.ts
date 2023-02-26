@@ -6,9 +6,10 @@ import { signOut } from "@/contexts/AuthContext";
 export function setupAPIClient(ctx = undefined) {
 
     let cookies = parseCookies(ctx)
-
+    const urlLocal = "http://localhost:3333"
+    const urlRailway = "https://backend-pizzeria-system.up.railway.app"
     const api = axios.create({
-        baseURL: "http://localhost:3333",
+        baseURL: urlRailway,
         headers: {
             Authorization: `Bearer ${cookies['@nextauth.token']}`
         }
